@@ -5,9 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     role: DataTypes.INTEGER,
   }, {
-    timestamp: false,
+    timestamps: false,
     underscored: false,
-    table: 'users'
+    tableName: 'users'
   });
 
   User.associate = (models) => {
