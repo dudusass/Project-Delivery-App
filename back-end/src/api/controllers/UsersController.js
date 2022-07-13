@@ -17,6 +17,11 @@ class UsersController {
     await this.usersService.create(req.body);
     return res.status(StatusCodes.CREATED).end();
   }
+
+  async adminCreate(req, res) {
+    await this.usersService.adminCreate(req.body);
+    return res.status(StatusCodes.CREATED).end();
+  }
 }
 
 module.exports = UsersController;
