@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       underscored: true,
-      table: 'products',
+      tableName: 'products',
     },
   );
 
   Product.associate = (models) => {
-    Product.hasMany(models.SalesProduct, { as: 'saleProducts', foreignKey: 'productId' });
+    Product.hasMany(models.SaleProduct, { as: 'product', foreignKey: 'productId' });
   };
 
   return Product;
