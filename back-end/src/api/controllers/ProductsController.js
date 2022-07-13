@@ -7,7 +7,6 @@ class ProductsController {
   }
 
   async getAll(_req, res) {
-    console.log('Olá');
     const productsFound = await this.productsService.getAll();
 
     res.status(StatusCodes.OK).json(productsFound);
