@@ -6,7 +6,7 @@ class UsersMiddleware {
     this.invalidFieldMessage = 'All fields must be filled';
   }
 
-   verifyName(req, res, next) {
+   verifyName(req, _res, next) {
     const { name } = req.body;
     if (!name) {
       throw new BadDigestError(this.invalidFieldMessage);
@@ -18,7 +18,7 @@ class UsersMiddleware {
     return next();
   }
 
-  verifyEmail(req, res, next) {
+  verifyEmail(req, _res, next) {
     const { email } = req.body;
     if (!email) {
       throw new BadDigestError(this.invalidFieldMessage);
@@ -30,7 +30,7 @@ class UsersMiddleware {
     return next();
   }
 
-  verifyPassword(req, res, next) {
+  verifyPassword(req, _res, next) {
     const { password } = req.body;
     if (!password) {
       throw new BadDigestError(this.invalidFieldMessage);
@@ -40,6 +40,15 @@ class UsersMiddleware {
       throw new BadDigestError('"password" length must be equal or greater than 6');
     }
     return next();
+  }
+
+  verifyRole(req, _res, next) {
+    const { role } = req.body;
+    if (!role && role !== 0) {
+      throw new BadDigestError(this.invalidFieldMessage);
+    } else {
+      next();
+    }
   }
 }
 
