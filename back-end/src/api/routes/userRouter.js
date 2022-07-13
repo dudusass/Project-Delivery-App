@@ -13,4 +13,12 @@ router.post(
   (req, res) => usersController.login(req, res),
 );
 
+router.post(
+  '/register',
+  (req, res, next) => usersMiddleware.verifyEmail(req, res, next),
+  (req, res, next) => usersMiddleware.verifyName(req, res, next),
+  (req, res, next) => usersMiddleware.verifyPassword(req, res, next),
+  (req, res) => usersController.create(req, res),
+);
+
 module.exports = router;

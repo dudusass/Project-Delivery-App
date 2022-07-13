@@ -6,14 +6,14 @@ class UsersMiddleware {
     this.invalidFieldMessage = 'All fields must be filled';
   }
 
-   verifyUsername(req, res, next) {
-    const { username } = req.body;
-    if (!username) {
+   verifyName(req, res, next) {
+    const { name } = req.body;
+    if (!name) {
       throw new BadDigestError(this.invalidFieldMessage);
     }
 
-    if (username.length < 6) {
-      throw new BadDigestError('"username" length must be equal or greater than 6');
+    if (name.length < 12) {
+      throw new BadDigestError('"name" length must be equal or greater than 12');
     }
     return next();
   }

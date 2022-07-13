@@ -12,6 +12,11 @@ class UsersController {
     const result = await this.usersService.login(email, password);
     return res.status(StatusCodes.OK).json(result);
   }
+
+  async create(req, res) {
+    await this.usersService.create(req.body);
+    return res.status(StatusCodes.CREATED).end();
+  }
 }
 
 module.exports = UsersController;
