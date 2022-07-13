@@ -1,12 +1,11 @@
 const Sequelize = require('sequelize');
 const config = require('../../database/config/config');
-const { Sale } = require('../../database/models');
-const { SalesProduct } = require('../../database/models');
+const { Sale, Product, SaleProduct } = require('../../database/models');
 
 class SalesModel {
   constructor() {
     this.sale = Sale;
-    this.saleProduct = SalesProduct;
+    this.saleProduct = SaleProduct;
     this.sequelize = new Sequelize(config.development);
   }
 
@@ -19,8 +18,15 @@ class SalesModel {
     console.log('ola!', id);
     return this.sale.findOne({
       where: { id },
-      // include: [{ model: 'Product', as: 'saleProduct', through: { attributes: [] } }],
-      include: [{ model: 'SalesProduct', as: 'saleProduct', through: { attributes: [] } }],
+      include: [
+        {
+          model: SaleProduct,
+          as: 'saleProduct',
+          include: [{ model: Product, as: 'product' }],
+          attributes: { exclude: ['saleId', 'productId'] },
+        },
+      ],
+      // include: [{ model: SalesProduct, as: 'sales' }],
     });
   }
 
