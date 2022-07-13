@@ -13,15 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       underscored: true,
-      table: 'sales',
+      tableName: 'sales',
     },
   );
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
     Sale.belongsTo(models.User, { as: 'seller', foreignKey: 'sellerId' });
-    Sale.hasMany(models.SalesProduct, {
-      as: 'salesProduct',
+    Sale.hasMany(models.SaleProduct, {
+      as: 'saleProduct',
       foreignKey: 'saleId',
     });
   };
