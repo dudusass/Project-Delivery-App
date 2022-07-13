@@ -14,6 +14,14 @@ class SalesController {
     res.status(StatusCodes.OK).json(salesFound);
   }
 
+  async getBySeller(req, res) {
+    const { id: sellerId } = req.body.decoded;
+
+    const salesFound = await this.salesService.getBySeller(sellerId);
+
+    res.status(StatusCodes.OK).json(salesFound);
+  }
+
   async getById(req, res) {
     const { id } = req.params;
 
