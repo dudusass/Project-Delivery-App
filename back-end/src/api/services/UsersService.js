@@ -7,6 +7,11 @@ class UsersService {
   constructor() {
     this.userModel = new UserModel();
   }
+  
+  async getAll() {
+    const users = await this.userModel.getAll();
+    return users;
+  }
 
   async login(email, password) {
     const user = await this.userModel.getByEmail(email);
@@ -50,6 +55,15 @@ class UsersService {
 );
     } else {
       throw new ConflictError('email or password already used!');
+    }
+  }
+
+  async adminDelete(id) {
+    const user = await this.userModel.getById(id);
+    if (user) {
+      await this.userModel.delete(id);
+    } else {
+      throw new NotFoundError('user do not exists');
     }
   }
 }
