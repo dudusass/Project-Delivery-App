@@ -2,12 +2,8 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 class JwtGenerator {
-  static generateToken(id, name, email) {
-    const data = {
-      id, 
-      name,
-      email,
-    };
+  static generateToken(payload) {
+    const data = { ...payload };
     const jwtConfig = {
       expiresIn: '5h',
       algorithm: 'HS256',
