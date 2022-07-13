@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
 const config = require('../../database/config/config');
 const { Sale, Product, SaleProduct } = require('../../database/models');
@@ -11,6 +12,11 @@ class SalesModel {
 
   async getByUser(userId) {
     return this.sale.findAll({ where: { userId } });
+  }
+
+  async getBySeller(sellerId) {
+    // Verificar amanhã se vou deixar a opção NULL;
+    return this.sale.findAll({ where: { [Op.or]: [{ sellerId }, { sellerId: null }] } });
   }
 
   async getById(id) {
