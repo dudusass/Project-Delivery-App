@@ -11,7 +11,12 @@ class UsersService {
   async login(email, password) {
     const user = await this.userModel.getByEmail(email);
     if (user && user.password === md5(password)) {
-      const token = JwtGenerator.generateToken(user.id, user.name, email);
+      const token = JwtGenerator.generateToken({ 
+        id: user.id, 
+        name: user.name, 
+        email, 
+        role: user.role, 
+      });
       const { name, role } = user;
       return {
         name,
@@ -29,6 +34,20 @@ class UsersService {
 
     if (!nameExists && !emailExists) {
       await this.userModel.create({ isAdmin: false }, { ...user, password: md5(user.password) });
+    } else {
+      throw new ConflictError('email or password already used!');
+    }
+  }
+
+  async adminCreate(payload) {
+    const nameExists = await this.userModel.getByName(payload.name);
+    const emailExists = await this.userModel.getByEmail(payload.email);
+
+    if (!nameExists && !emailExists) {
+      await this.userModel.create(
+        { isAdmin: true }, 
+        { ...payload, password: md5(payload.password) },
+);
     } else {
       throw new ConflictError('email or password already used!');
     }
