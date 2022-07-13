@@ -1,8 +1,30 @@
+const { Op } = require('sequelize');
 const { User } = require('../../database/models');
 
 class UserModel {
   constructor() {
     this.user = User;
+  }
+
+  async getAll() {
+    const users = await this.user.findAll({
+      where: {
+        [Op.or]: [
+          { role: 1 },
+          { role: 2 },
+        ],
+      },
+    });
+    return users;
+  }
+  
+  async getById(id) {
+    const user = await this.user.findOne({
+      where: {
+        id,
+      },
+    });
+    return user;
   }
 
   async getByEmail(email) {
@@ -43,6 +65,14 @@ class UserModel {
         password,
       });
     }
+  }
+
+  async delete(id) {
+      await this.user.destroy({
+        where: {
+          id,
+        },
+      });
   }
 }
 
