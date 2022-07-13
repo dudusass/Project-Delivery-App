@@ -6,6 +6,11 @@ class UsersController {
     this.usersService = new UsersService();
   }
 
+  async getAll(req, res) {
+    const users = await this.usersService.getAll();
+    return res.status(StatusCodes.OK).json(users);
+  }
+
   async login(req, res) {
     const { email, password } = req.body;
     
@@ -21,6 +26,12 @@ class UsersController {
   async adminCreate(req, res) {
     await this.usersService.adminCreate(req.body);
     return res.status(StatusCodes.CREATED).end();
+  }
+
+  async adminDelete(req, res) {
+    const { id } = req.params;
+    await this.usersService.adminDelete(id);
+    return res.status(StatusCodes.NO_CONTENT).end();
   }
 }
 

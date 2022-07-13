@@ -12,7 +12,6 @@ class AdminAuthMiddleware {
     if (token) {
       const decoded = jwt.verify(token, this.secret);
       req.body.decoded = decoded;
-      console.log(decoded);
       if (decoded.role !== 0) {
         throw new UnauthorizedError('Access denied');
       }
