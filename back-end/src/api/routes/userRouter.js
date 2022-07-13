@@ -23,6 +23,12 @@ router.post(
   (req, res) => usersController.create(req, res),
 );
 
+router.get(
+  '/admin/users',
+  (req, res, next) => auth.verifyToken(req, res, next),
+  (req, res) => usersController.getAll(req, res),
+  );
+
 router.post(
   '/admin/register',
   (req, res, next) => auth.verifyToken(req, res, next),
@@ -31,6 +37,12 @@ router.post(
   (req, res, next) => usersMiddleware.verifyPassword(req, res, next),
   (req, res, next) => usersMiddleware.verifyRole(req, res, next),
   (req, res) => usersController.adminCreate(req, res),
+);
+
+router.delete(
+  '/admin/:id', 
+  (req, res, next) => auth.verifyToken(req, res, next), 
+  (req, res) => usersController.adminDelete(req, res),
 );
 
 module.exports = router;
