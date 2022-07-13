@@ -13,9 +13,7 @@ class SalesModel {
     return this.sale.findAll({ where: { userId } });
   }
 
-  // Team que devolver os produtos também.
   async getById(id) {
-    console.log('ola!', id);
     return this.sale.findOne({
       where: { id },
       include: [
@@ -26,7 +24,6 @@ class SalesModel {
           attributes: { exclude: ['saleId', 'productId'] },
         },
       ],
-      // include: [{ model: SalesProduct, as: 'sales' }],
     });
   }
 
@@ -39,7 +36,6 @@ class SalesModel {
         { transaction: t },
       );
 
-      // Verificar se vai funcionar por que disseram que o forEach  não funciona bem com async await
       await Promise.all(
         saleProducts.map(async ({ productId, quantity }) => {
           await this.saleProduct.create(

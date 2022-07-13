@@ -7,8 +7,7 @@ class SalesController {
   }
 
   async getByUser(req, res) {
-    // userId tem que ser desestruturado do middleware de autenticação, modificar amanhã.
-    const { userId } = req.body;
+    const { id: userId } = req.body.decoded;
 
     const salesFound = await this.salesService.getByUser(userId);
 
@@ -24,8 +23,8 @@ class SalesController {
   }
 
   async create(req, res) {
-    // userId tem que ser desestruturado do middleware de autenticação, modificar amanhã.
-    const { userId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = req.body;
+    const { totalPrice, deliveryAddress, deliveryNumber, saleProducts } = req.body;
+    const { id: userId } = req.body.decoded;
 
     const saleId = await this.salesService.create({
       userId,
