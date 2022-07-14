@@ -49,7 +49,6 @@ class SalesController {
   async changeStatus(req, res) {
     const { status, saleId } = req.body;
     const { role } = req.body.decoded;
-    console.log(role)
 
     const newStatus = await this.salesService.changeStatus(status, saleId, role);
     return res.status(StatusCodes.OK).json(newStatus);
