@@ -14,6 +14,14 @@ class SalesController {
     res.status(StatusCodes.OK).json(salesFound);
   }
 
+  async getBySeller(req, res) {
+    const { id: sellerId } = req.body.decoded;
+
+    const salesFound = await this.salesService.getBySeller(sellerId);
+
+    res.status(StatusCodes.OK).json(salesFound);
+  }
+
   async getById(req, res) {
     const { id } = req.params;
 
@@ -23,11 +31,12 @@ class SalesController {
   }
 
   async create(req, res) {
-    const { totalPrice, deliveryAddress, deliveryNumber, saleProducts } = req.body;
+    const { sellerId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = req.body;
     const { id: userId } = req.body.decoded;
 
     const saleId = await this.salesService.create({
       userId,
+      sellerId,
       totalPrice,
       deliveryAddress,
       deliveryNumber,

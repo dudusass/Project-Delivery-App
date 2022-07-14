@@ -7,11 +7,11 @@ class SalesService {
   }
 
   async getByUser(userId) {
-    const salesFound = await this.salesModel.getByUser(userId);
+    return this.salesModel.getByUser(userId);
+  }
 
-    if (!salesFound || salesFound.length === 0) throw new NotFoundError('Not a sale found');
-
-    return salesFound;
+  async getBySeller(sellerId) {
+    return this.salesModel.getBySeller(sellerId);
   }
 
   async getById(id) {

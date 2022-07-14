@@ -13,6 +13,10 @@ class SalesModel {
     return this.sale.findAll({ where: { userId } });
   }
 
+  async getBySeller(sellerId) {
+    return this.sale.findAll({ where: { sellerId } });
+  }
+
   async getById(id) {
     return this.sale.findOne({
       where: { id },
@@ -28,11 +32,11 @@ class SalesModel {
   }
 
   async create(sale) {
-    const { userId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = sale;
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = sale;
 
     const saleId = await this.sequelize.transaction(async (t) => {
       const saleCreated = await this.sale.create(
-        { userId, totalPrice, deliveryAddress, deliveryNumber },
+        { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber },
         { transaction: t },
       );
 

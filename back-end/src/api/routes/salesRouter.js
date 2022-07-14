@@ -16,6 +16,11 @@ route
     (req, res) => salesController.getByUser(req, res),
   )
   .get(
+    '/seller',
+    (req, res, next) => auth.verifyToken(req, res, next),
+    (req, res) => salesController.getBySeller(req, res),
+  )
+  .get(
     '/:id',
     (req, res, next) => auth.verifyToken(req, res, next),
     (req, res) => salesController.getById(req, res),
