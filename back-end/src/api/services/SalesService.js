@@ -1,4 +1,5 @@
-const { NotFoundError } = require('restify-errors');
+const { NotFoundError, UnauthorizedError } = require('restify-errors');
+const { statusValidatorClient, statusValidatorSeller } = require('../../utils/statusValidate');
 const SalesModel = require('../models/SalesModel');
 
 class SalesService {
@@ -24,6 +25,14 @@ class SalesService {
 
   async create(sale) {
     return this.salesModel.create(sale);
+  }
+
+  async changeStatus(status, saleId, role) {
+    await this.getById(saleId);
+    if (statusValidatorClient(role, status) || statusValidatorSeller(role, status)) {
+      return this.salesModel.changeStatus(saleId, status);
+    }
+    throw new UnauthorizedError('Access denied');
   }
 }
 

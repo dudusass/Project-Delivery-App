@@ -45,6 +45,14 @@ class SalesController {
 
     res.status(StatusCodes.CREATED).json({ saleId });
   }
+
+  async changeStatus(req, res) {
+    const { status, saleId } = req.body;
+    const { role } = req.body.decoded;
+
+    const newStatus = await this.salesService.changeStatus(status, saleId, role);
+    return res.status(StatusCodes.OK).json(newStatus);
+  }
 }
 
 module.exports = SalesController;

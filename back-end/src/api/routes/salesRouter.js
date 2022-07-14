@@ -33,6 +33,11 @@ route
     (req, res, next) => salesMiddleware.verifyDeliveryNumber(req, res, next),
     (req, res, next) => salesMiddleware.verifySaleProducts(req, res, next),
     (req, res) => salesController.create(req, res),
+  )
+  .patch(
+    '/',
+    (req, res, next) => auth.verifyToken(req, res, next),
+    (req, res) => salesController.changeStatus(req, res),
   );
 
 module.exports = route;
