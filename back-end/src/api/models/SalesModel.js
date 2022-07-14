@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
 const config = require('../../database/config/config');
 const { Sale, Product, SaleProduct } = require('../../database/models');
@@ -15,8 +14,7 @@ class SalesModel {
   }
 
   async getBySeller(sellerId) {
-    // Verificar amanhã se vou deixar a opção NULL;
-    return this.sale.findAll({ where: { [Op.or]: [{ sellerId }, { sellerId: null }] } });
+    return this.sale.findAll({ where: { sellerId } });
   }
 
   async getById(id) {
@@ -34,11 +32,11 @@ class SalesModel {
   }
 
   async create(sale) {
-    const { userId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = sale;
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = sale;
 
     const saleId = await this.sequelize.transaction(async (t) => {
       const saleCreated = await this.sale.create(
-        { userId, totalPrice, deliveryAddress, deliveryNumber },
+        { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber },
         { transaction: t },
       );
 
