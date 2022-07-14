@@ -54,6 +54,11 @@ class SalesModel {
 
     return saleId;
   }
+
+  async changeStatus(saleId, status) {
+    const newStatus = await this.sale.update({ status }, { where: { id: saleId} });
+    return newStatus;
+  }
 }
 
 module.exports = SalesModel;
