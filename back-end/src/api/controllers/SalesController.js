@@ -31,11 +31,12 @@ class SalesController {
   }
 
   async create(req, res) {
-    const { totalPrice, deliveryAddress, deliveryNumber, saleProducts } = req.body;
+    const { sellerId, totalPrice, deliveryAddress, deliveryNumber, saleProducts } = req.body;
     const { id: userId } = req.body.decoded;
 
     const saleId = await this.salesService.create({
       userId,
+      sellerId,
       totalPrice,
       deliveryAddress,
       deliveryNumber,
