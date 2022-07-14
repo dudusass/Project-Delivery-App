@@ -56,7 +56,7 @@ class SalesModel {
   }
 
   async changeStatus(saleId, status) {
-    const newStatus = await this.sale.update({ status }, { where: { id: saleId} });
+    const newStatus = await this.sale.update({ status }, { where: { id: saleId } });
     return newStatus;
   }
 }
