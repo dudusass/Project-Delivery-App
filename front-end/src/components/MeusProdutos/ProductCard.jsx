@@ -4,11 +4,10 @@ import ContextProject from '../../context';
 import '../../css/ProductCard.css';
 
 export default function ProductCard(props) {
-  const {valorCarrinho, setValorCarrinho} = useContext(ContextProject);
   const { id, nome, imagem, preco, produtos } = props;
-  
+  const { pedidosData, setPedidosData } = useContext(ContextProject);
+
   const [quantidade, setQuantidade] = useState(0);
-  const [subTotal, setSubTotal] = useState(0);
 
   /*   function verificaQuantidade() {
     if (quantidade > 0) {
@@ -33,15 +32,15 @@ export default function ProductCard(props) {
   };
 
   const subtraiValor = () => {
-    if (quantidade === 0) {
-      button.disabled = true;
-    }
-    const subtracao = quantidade - 1;
-    setQuantidade(subtracao);
-    const valorTotal = valorCarrinho - preco;
-    const subTotalProduto = subTotal - preco;
-    setValorCarrinho(valorTotal);
-    setSubTotal(subTotalProduto);
+    // if (quantidade === 0) {
+    //   button.disabled = true;
+    // }
+    // const subtracao = quantidade - 1;
+    // setQuantidade(subtracao);
+    // const valorTotal = valorCarrinho - preco;
+    // const subTotalProduto = subTotal - preco;
+    // setValorCarrinho(valorTotal);
+    // setSubTotal(subTotalProduto);
   };
 
   return (
@@ -80,6 +79,7 @@ export default function ProductCard(props) {
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   nome: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  imagem: PropTypes.string.isRequired,
   preco: PropTypes.number.isRequired,
+  produtos: PropTypes.node.isRequired,
 };

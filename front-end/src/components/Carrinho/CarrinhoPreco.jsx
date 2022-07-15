@@ -3,7 +3,7 @@ import ContextProject from '../../context';
 import '../../css/CarrinhoPreco.css';
 
 export default function CarrinhoPreco() {
-  const { valorCarrinho } = useContext(ContextProject);
+  //const { valorCarrinho } = useContext(ContextProject);
 
   return (
     <div className="carrinhoPrecoContainer">

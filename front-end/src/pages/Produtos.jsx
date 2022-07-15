@@ -7,12 +7,13 @@ import ContextProject from '../context';
 import '../css/Produtos.css';
 
 export default function Produtos() {
-  const { setProductData, productData } = useContext(ContextProject);
+  const { productData, setProductData } = useContext(ContextProject);
 
   useEffect(() => {
     (async () => {
       try {
-        const productResult = (await axios.get('https://mocks-trybe.herokuapp.com/produtos')).data
+        const productResult = (await axios
+          .get('https://mocks-trybe.herokuapp.com/produtos')).data
         setProductData(productResult);
       } catch (error) {
         console.log(error);
@@ -21,7 +22,9 @@ export default function Produtos() {
   });
 
   const mapProdutos = () => productData
-    .map((produto, index) => (<ProductCard key={index} { ...produto } produtos={productData} />));
+    .map((produto, index) => (<ProductCard 
+      key={index} { ...produto } produtos={productData} 
+    />));
 
   return (
     <div>

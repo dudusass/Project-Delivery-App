@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import MeusPedidos from './pages/MeusPedidos';
 import Produtos from './pages/Produtos';
+import FinalizarPedido from './pages/FinalizarPedido';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact element={ <Register /> } path="/" />
         <Route element={ <Produtos /> } path="/produtos" />
         <Route element={ <MeusPedidos /> } path="/meuspedidos" />
+        <Route element={ <FinalizarPedido /> } path="/finalizarpedidos" />
       </Switch>
     </Provider>
   );
