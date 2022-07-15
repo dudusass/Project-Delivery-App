@@ -13,6 +13,11 @@ class UsersService {
     return users;
   }
 
+  async getAllSellers() {
+    const sellers = await this.userModel.getAllSellers();
+    return sellers;
+  }
+
   async login(email, password) {
     const user = await this.userModel.getByEmail(email);
     if (user && user.password === md5(password)) {
