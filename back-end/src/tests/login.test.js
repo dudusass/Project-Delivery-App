@@ -13,7 +13,7 @@ const {
   wrongCredentials,
   invalidEmailField,
   invalidPasswordField,
-} = require('./loginMock');
+} = require('./mocks/loginMock');
 const { expect } = require('chai');
 
 chai.use(chaiHttp);
