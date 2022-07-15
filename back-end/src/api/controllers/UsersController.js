@@ -11,6 +11,11 @@ class UsersController {
     return res.status(StatusCodes.OK).json(users);
   }
 
+  async getAllSellers(req, res) {
+    const sellers = await this.usersService.getAllSellers();
+    return res.status(StatusCodes.OK).json(sellers);
+  }
+
   async login(req, res) {
     const { email, password } = req.body;
     
