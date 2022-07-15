@@ -1,17 +1,24 @@
 import React from 'react';
+import { Routes as Switch, Route } from 'react-router-dom';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import Provider from './context/Provider';
+
+import Login from './pages/Login';
+import Register from './pages/Register';
+import MeusPedidos from './pages/MeusPedidos';
+import Produtos from './pages/Produtos';
 
 function App() {
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <Provider>
+      <Switch>
+        <Route exact element={ <Login /> } path="/" />
+        <Route exact element={ <Register /> } path="/" />
+        <Route element={ <Produtos /> } path="/produtos" />
+        <Route element={ <MeusPedidos /> } path="/meuspedidos" />
+      </Switch>
+    </Provider>
   );
 }
-
 
 export default App;

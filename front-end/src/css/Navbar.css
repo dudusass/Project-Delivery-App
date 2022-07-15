@@ -1,0 +1,42 @@
+.separete-buttons {
+  background: #036b52;
+  border: none;
+  display: flex;
+  height: 3rem;
+  justify-content: space-between;
+  padding: none;
+}
+
+.box {
+  border: none;
+  height: 100%;
+  padding: none;
+}
+
+
+.buttons-adjust {
+  border: none;
+  color: white;
+  height: 100%;
+  padding: 1.4em;
+}
+
+.product-button {
+  background: #036b52;
+}
+
+.request-button {
+  background: #036b52;
+}
+
+.name-bar {
+  background-color: #421981;
+}
+
+.exit-button {
+  background-color: #056cf9;
+}
+
+.selected {
+  background-color: #2fc18c;
+}

@@ -1,0 +1,12 @@
+.carrinhoPrecoContainer {
+  background-color: rgba(21, 75, 146, 0.767);
+  border-radius: 15px;
+  color: azure;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  width: 190px;
+  position: fixed;
+  top: 90vh;
+  left: 1170px;
+}
