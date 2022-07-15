@@ -120,4 +120,30 @@ describe('POST /api/users/login', () => {
       expect(chaiHttpResponse.body).to.be.deep.equal({message: 'All fields must be filled'});
     })
   })
+
+  describe('500  Internal Error - Servidor se comportou de forma inesperada', () => {
+    let chaiHttpResponse;
+
+    before(() => {
+      sinon
+        .stub(User, 'findOne')
+        .throws(new Error());
+    });
+
+    after(() => {
+      User.findOne.restore();
+    });
+
+    it('trata algum erro inesperado.', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .post('/api/users/login')
+        .send(credentials);
+
+      expect(chaiHttpResponse.status).to.be.equal(500);
+      expect(chaiHttpResponse.body).to.be.deep.equal({message: 'Internal server error'});
+    })
+  })
+
+
 })
