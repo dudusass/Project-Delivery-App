@@ -17,6 +17,16 @@ class UserModel {
     });
     return users;
   }
+
+  async getAllSellers() {
+    const users = await this.user.findAll({
+      where: {
+        role: 1,
+      },
+      attributes: { exclude: ['password'] },
+    });
+    return users;
+  }
   
   async getById(id) {
     const user = await this.user.findOne({
