@@ -13,7 +13,6 @@
   padding: none;
 }
 
-
 .buttons-adjust {
   border: none;
   color: white;
@@ -39,4 +38,8 @@
 
 .selected {
   background-color: #2fc18c;
+}
+
+button {
+  cursor: pointer;
 }

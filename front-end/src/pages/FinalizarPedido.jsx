@@ -1,15 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import ContextProject from '../context';
 import FinalizarPedidosCard from '../components/FinalizarPedidos/FinalizarPedidosCard';
 
 export default function FinalizarPedido() {
-  const { pedidosData, setPedidosData } = useContext(ContextProject);
+  const { pedidosData } = useContext(ContextProject);
 
   const mapFinalizarPedidos = () => pedidosData.produtos
-    .map((pedidos, index) => (<FinalizarPedidosCard 
-      key={index}
-      item={index + 1}
-      valorTotal={pedidosData.total}
+    .map((pedidos, index) => (<FinalizarPedidosCard
+      key={ index }
+      item={ index + 1 }
+      valorTotal={ pedidosData.total }
       { ...pedidos }
     />));
 

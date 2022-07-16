@@ -1,50 +1,25 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import request from '../utils/request';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { saveStorage } from '../localStorage/localStorage';
 import '../css/Login.css';
 
-function Login(props) {
+function Login() {
   const [displayErrorMsg, setDisplayErrorMsg] = useState(false);
-  const [inputs, setInputs] = useState({
-    email: '',
-    password: '',
-  });
+  const [inputs, setInputs] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
-  function handleChange({ target }) {
-    const { name, value } = target;
-    setInputs((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }
+  const handleChange = ({ target: { name, value } }) => setInputs((prevState) => (
+    { ...prevState, [name]: value }));
 
   async function handleClickLogin() {
-    const { history } = props;
-    const { email, password } = inputs;
-    const url = 'http://localhost:3001/login';
-    const method = 'POST';
-    const headers = {
-      'Content-type': 'application/json; charset=UTF-8',
-    };
-    const body = {
-      email,
-      password,
-    };
-
-    const returnRequest = await request(url, method, headers, JSON.stringify(body));
-    console.log(returnRequest);
-
-    if (returnRequest.message) {
+    try {
+      const returnRequest = await axios.post('http://localhost:3001/api/users/login', inputs);
+      saveStorage('user', returnRequest.data);
+      navigate('/customer/products');
+    } catch (error) {
       setDisplayErrorMsg(true);
-    } else {
-      history.push('/customer/products');
     }
-  }
-
-  function handleClickRegister() {
-    const { history } = props;
-
-    history.push('/register');
   }
 
   function enableButton() {
@@ -94,7 +69,7 @@ function Login(props) {
         </button>
         <button
           type="button"
-          onClick={ handleClickRegister }
+          onClick={ () => navigate('/register') }
           data-testid="common_login__button-register"
         >
           Ainda não tenho conta
@@ -110,9 +85,5 @@ function Login(props) {
     </div>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.node.isRequired,
-};
 
 export default Login;

@@ -10,16 +10,16 @@ export default function MeusPedidos() {
   useEffect(() => {
     (async () => {
       try {
-        const pedidosResult = (await axios.get('https://mocks-trybe.herokuapp.com/pedidos')).data
+        const pedidosResult = (await axios.get('https://mocks-trybe.herokuapp.com/pedidos')).data;
         setPedidosData(pedidosResult);
       } catch (error) {
         console.log(error);
       }
     })();
   });
-  
+
   const mapPedidosCards = () => pedidosData
-    .map((pedidos, index) => (<PedidosCard key={index} { ...pedidos }/>));
+    .map((pedidos, index) => (<PedidosCard key={ index } { ...pedidos } />));
 
   return (
     <div className="meusPedidosContainer">

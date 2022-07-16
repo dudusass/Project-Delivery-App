@@ -4,54 +4,33 @@ import ContextProject from '../../context';
 import '../../css/ProductCard.css';
 
 export default function ProductCard(props) {
-  const { id, nome, imagem, preco, produtos } = props;
+  const { id, name, price, urlImage, produtos } = props;
   const { pedidosData, setPedidosData } = useContext(ContextProject);
 
   const [quantidade, setQuantidade] = useState(0);
 
-  /*   function verificaQuantidade() {
-    if (quantidade > 0) {
-      setPedidoFinal([...{ name: nome, quantidade, valor: preco, subTotal }]);
-    }
-  }
-
-  useEffect(() => {
-    console.log('funcionando');
-    return () => { verificaQuantidade(); };
-  }, [verificaQuantidade]); */
-
   const somaValor = () => {
     console.log(id);
     console.log(produtos);
-  /*   const soma = quantidade + 1;
-    setQuantidade(soma);
-    const valorTotal = valorCarrinho + preco;
-    const subTotalProduto = subTotal + preco;
-    setValorCarrinho(valorTotal);
-    setSubTotal(subTotalProduto); */
+    setQuantidade(quantidade + 1);
   };
 
   const subtraiValor = () => {
-    // if (quantidade === 0) {
-    //   button.disabled = true;
-    // }
-    // const subtracao = quantidade - 1;
-    // setQuantidade(subtracao);
-    // const valorTotal = valorCarrinho - preco;
-    // const subTotalProduto = subTotal - preco;
-    // setValorCarrinho(valorTotal);
-    // setSubTotal(subTotalProduto);
+    if (quantidade === 0) {
+      button.disabled = true;
+    }
+    setQuantidade(quantidade - 1);
   };
 
   return (
     <div className="cardProductContainer">
       <div>
         <p className="preco">
-          {` R$ ${preco.toFixed(2).toString().replace('.', ',')}`}
+          {` R$ ${price.toFixed(2).toString().replace('.', ',')}`}
         </p>
-        <img className="imagem" src={ imagem } alt="imagem do produto" width="200" />
+        <img className="imagem" src={ urlImage } alt="imagem do produto" width="200" />
       </div>
-      <p>{nome}</p>
+      <p>{name}</p>
       <div className="butoesContainer">
         <button
           className="buttons"
@@ -78,8 +57,8 @@ export default function ProductCard(props) {
 
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
-  nome: PropTypes.string.isRequired,
-  imagem: PropTypes.string.isRequired,
-  preco: PropTypes.number.isRequired,
-  produtos: PropTypes.node.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  urlImage: PropTypes.string.isRequired,
+  produtos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };

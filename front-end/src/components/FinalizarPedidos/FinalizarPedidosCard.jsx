@@ -8,26 +8,26 @@ function FinalizarPedidosCard(props) {
   return (
     <div className="finalizar-pedidos-container">
       <div>
-        <p>Item: {item}</p>
+        <p>{ `Item: ${item}` }</p>
       </div>
       <div>
-        <p>Descrição: {nome}</p>
+        <p>{ `Nome: ${nome}` }</p>
       </div>
       <div>
-        <p>Quantidade: {quantidade}</p>
+        <p>{ `Quantidade: ${quantidade}` }</p>
       </div>
       <div>
-        <p>Valor Unitário: {preco}</p>
+        <p>{ `Valor Unitário: ${preco}` }</p>
       </div>
       <div>
-        <p>Sub-Total: {subTotal}</p>
+        <p>{ `Sub-Total: ${subTotal}` }</p>
       </div>
       <div>
         <p>Remover Item</p>
       </div>
 
       <div>
-        <p>Valor Total:{valorTotal}</p>
+        <p>{ `Valor Total: ${valorTotal} ` }</p>
       </div>
     </div>
   );
