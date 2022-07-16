@@ -9,7 +9,7 @@ const usersMiddleware = new UsersMiddleware();
 const auth = new AdminAuthMiddleware();
 
 router.post(
-  '/users/login', 
+  '/users/login',
   (req, res, next) => usersMiddleware.verifyEmail(req, res, next),
   (req, res, next) => usersMiddleware.verifyPassword(req, res, next),
   (req, res) => usersController.login(req, res),
@@ -27,7 +27,7 @@ router.get(
   '/admin/users',
   (req, res, next) => auth.verifyToken(req, res, next),
   (req, res) => usersController.getAll(req, res),
-  );
+);
 
 router.post(
   '/admin/register',
@@ -40,8 +40,8 @@ router.post(
 );
 
 router.delete(
-  '/admin/:id', 
-  (req, res, next) => auth.verifyToken(req, res, next), 
+  '/admin/:id',
+  (req, res, next) => auth.verifyToken(req, res, next),
   (req, res) => usersController.adminDelete(req, res),
 );
 

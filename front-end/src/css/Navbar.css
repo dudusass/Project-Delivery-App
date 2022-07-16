@@ -40,3 +40,7 @@
 .selected {
   background-color: #2fc18c;
 }
+
+button {
+  cursor: pointer;
+}
