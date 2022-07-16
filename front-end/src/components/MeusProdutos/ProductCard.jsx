@@ -4,15 +4,27 @@ import ContextProject from '../../context';
 import '../../css/ProductCard.css';
 
 export default function ProductCard(props) {
-  const { id, name, price, urlImage, produtos } = props;
+  const { id, name, price, urlImage } = props;
   const { pedidosData, setPedidosData } = useContext(ContextProject);
 
   const [quantidade, setQuantidade] = useState(0);
 
   const somaValor = () => {
-    console.log(id);
-    console.log(produtos);
     setQuantidade(quantidade + 1);
+
+    const verificaProd = pedidosData.produtos.filter((item) => item.id === id);
+
+    if (verificaProd.length === 0) {
+      pedidosData.produtos.push({ id, name, price, quantidade: quantidade + 1 });
+      console.log(pedidosData);
+      setPedidosData(pedidosData);
+    }
+    const novaQuantidade = pedidosData.produtos.map((pedido) => {
+      if (pedido.id === verificaProd.id) {
+        pedido.quantidade = quantidade + 1;
+      }
+      return pedido;
+    });
   };
 
   const subtraiValor = () => {

@@ -9,7 +9,7 @@ import ContextProject from '../context';
 import '../css/Produtos.css';
 
 export default function Produtos() {
-  const { productData, setProductData } = useContext(ContextProject);
+  const { productData, setProductData, pedidosData } = useContext(ContextProject);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,14 +22,17 @@ export default function Produtos() {
             { headers: { authorization: user.token } });
 
         productResult = productResult.data
-          .map((iten) => ({ ...iten, price: parseFloat(iten.price.to) }));
-
+          .map((iten) => ({ ...iten, price: parseFloat(iten.price) }));
         setProductData(productResult);
       } catch (error) {
         console.log(error);
       }
     })();
-  });
+  }, [navigate, setProductData]);
+
+  useEffect(() => {
+    console.log(pedidosData.produtos);
+  }, [pedidosData.produtos]);
 
   const mapProdutos = () => productData
     .map((produto, index) => (<ProductCard

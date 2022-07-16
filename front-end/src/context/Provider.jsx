@@ -3,17 +3,9 @@ import PropTypes from 'prop-types';
 import ContextProject from '.';
 
 const pedidosMock = {
-  produtos: [
-    {
-      id: 2,
-      nome: "Cerveija Heineken",
-      quantidade: 3,
-      preco: 8,
-      subTotal: 24,
-    }
-  ],
-  total: 300.00
-}
+  produtos: [],
+  total: 0,
+};
 
 export default function Provider({ children }) {
   const [productData, setProductData] = useState([]);
@@ -22,7 +14,7 @@ export default function Provider({ children }) {
   const functions = {
     productData,
     setProductData,
-    pedidosData, 
+    pedidosData,
     setPedidosData,
   };
 
