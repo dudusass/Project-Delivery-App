@@ -10,8 +10,8 @@ class UserModel {
     const users = await this.user.findAll({
       where: {
         [Op.or]: [
-          { role: 1 },
-          { role: 2 },
+          { role: 'administrator' },
+          { role: 'customer' },
         ],
       },
     });

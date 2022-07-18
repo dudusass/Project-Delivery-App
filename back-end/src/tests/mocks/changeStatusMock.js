@@ -2,14 +2,14 @@ const decodedSeller = {
   id: 2, 
   name: "Fulana Pereira", 
   email: "fulana@deliveryapp.com", 
-  role: 1
+  role: 'seller'
 }
 
 const decodedClient = {
   id: 3, 
   name: "Zé birita", 
   email: "fulana@deliveryapp.com", 
-  role: 2
+  role: 'customer'
 }
 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRlbGl2ZXJ5IEFwcCBBZG1pbiIsImVtYWlsIjoiYWRtQGRlbGl2ZXJ5YXBwLmNvbSIsInJvbGUiOjAsImlhdCI6MTY1NzkxMDM5MSwiZXhwIjoxNjU3OTI4MzkxfQ.AR5BxcXrvucc3diwMR8SUBUOAwuyPWbGhZeOS8it1Uk"

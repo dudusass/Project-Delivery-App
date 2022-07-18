@@ -44,7 +44,7 @@ class UsersMiddleware {
 
   verifyRole(req, _res, next) {
     const { role } = req.body;
-    if (!role && role !== 0) {
+    if (!role && role !== 'administrator') {
       throw new BadDigestError(this.invalidFieldMessage);
     } else {
       next();
