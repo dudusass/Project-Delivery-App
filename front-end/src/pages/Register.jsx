@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './register.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [displayErrorMsg, setDisplayErrorMsg] = useState(false);
@@ -8,7 +9,7 @@ function Register() {
     email: '',
     password: '',
   });
-
+  const navigate = useNavigate();
   function handleChange({ target }) {
     const { name, value } = target;
     setInputs((prevState) => ({
@@ -17,11 +18,11 @@ function Register() {
     }));
   }
 
-  async function handleClickRegister() {
+  async function handleClickRegister(e) {
+    e.preventDefault();
     try {
-      const returnRequest = await axios.post('http://localhost:3001/api/users/login', inputs);
-      saveStorage('user', returnRequest.data);
-      navigate('/customer/products');
+      const returnRequest = await axios.post('http://localhost:3001/api/users/register', inputs);
+      navigate('/login');
     } catch (error) {
       setDisplayErrorMsg(true);
     }
@@ -79,7 +80,6 @@ function Register() {
         </label>
         <button
           className="registerButton"
-          type="submit"
           disabled={ enableButton() }
           onClick={ handleClickRegister }
           data-testid="common_register__button-register"
