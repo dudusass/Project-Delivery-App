@@ -11,11 +11,14 @@ export default function CarrinhoPreco() {
       .reduce((acc, item) => acc + item.subtotal, 0);
     console.log(pedidosData.produtos);
     setTotalCarrinho(totalItens);
-  }, [totalCarrinho]);
+  }, [pedidosData.produtos, totalCarrinho]);
 
   return (
     <div className="carrinhoPrecoContainer">
-      <p>R${carrinho.toFixed(2).toString().replace('.', ',')}</p>
+      <p>
+        R$
+        {carrinho.toFixed(2).toString().replace('.', ',')}
+      </p>
     </div>
   );
 }

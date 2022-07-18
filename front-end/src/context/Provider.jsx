@@ -17,7 +17,7 @@ export default function Provider({ children }) {
     setProductData,
     pedidosData,
     setPedidosData,
-    totalCarrinho, 
+    totalCarrinho,
     updateCarrinho,
   };
 

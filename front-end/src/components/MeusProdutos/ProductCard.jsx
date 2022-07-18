@@ -5,7 +5,7 @@ import '../../css/ProductCard.css';
 
 export default function ProductCard(props) {
   const { id, name, price, urlImage } = props;
-  const { pedidosData, setPedidosData, updateCarrinho} = useContext(ContextProject);
+  const { pedidosData, setPedidosData, updateCarrinho } = useContext(ContextProject);
 
   const [quantidade, setQuantidade] = useState(0);
 
