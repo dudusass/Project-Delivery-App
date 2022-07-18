@@ -22,7 +22,7 @@ export default function Produtos() {
             { headers: { authorization: user.token } });
 
         productResult = productResult.data
-          .map((iten) => ({ ...iten, price: parseFloat(iten.price.to) }));
+          .map((iten) => ({ ...iten, price: parseFloat(iten.price) }));
 
         setProductData(productResult);
       } catch (error) {
