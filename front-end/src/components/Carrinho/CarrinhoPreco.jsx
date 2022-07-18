@@ -1,25 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ContextProject from '../../context';
 import '../../css/CarrinhoPreco.css';
 
 export default function CarrinhoPreco() {
-  const { pedidosData } = useContext(ContextProject);
-  console.log(pedidosData);
-
-  function getPrice() {
-    /*     const totalPrice = pedidosData.produtos
-      .reducer((acc, item) => acc + item.subtotal, 0); */
-    console.log(pedidosData.produtos);
-    // return totalPrice;
-  }
+  const { pedidosData, totalCarrinho } = useContext(ContextProject);
+  const [carrinho, setTotalCarrinho] = useState(0);
 
   useEffect(() => {
+    const totalItens = pedidosData.produtos
+      .reduce((acc, item) => acc + item.subtotal, 0);
     console.log(pedidosData.produtos);
-  }, [pedidosData.produtos]);
+    setTotalCarrinho(totalItens);
+  }, [totalCarrinho]);
 
   return (
     <div className="carrinhoPrecoContainer">
-      0
+      <p>R${carrinho.toFixed(2).toString().replace('.', ',')}</p>
     </div>
   );
 }
