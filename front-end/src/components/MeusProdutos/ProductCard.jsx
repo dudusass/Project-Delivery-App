@@ -10,28 +10,48 @@ export default function ProductCard(props) {
   const [quantidade, setQuantidade] = useState(0);
 
   const somaValor = () => {
-    setQuantidade(quantidade + 1);
+    const newQuantidade = quantidade + 1;
+    setQuantidade(newQuantidade);
 
     const verificaProd = pedidosData.produtos.filter((item) => item.id === id);
 
     if (verificaProd.length === 0) {
-      pedidosData.produtos.push({ id, name, price, quantidade: quantidade + 1 });
-      console.log(pedidosData);
-      setPedidosData(pedidosData);
+      pedidosData.produtos.push({ id, name, price, quantidade: newQuantidade });
+
+      return setPedidosData(pedidosData);
     }
     const novaQuantidade = pedidosData.produtos.map((pedido) => {
-      if (pedido.id === verificaProd.id) {
-        pedido.quantidade = quantidade + 1;
+      if (pedido.id === verificaProd[0].id) {
+        pedido.quantidade = newQuantidade;
       }
       return pedido;
     });
+    pedidosData.produtos = novaQuantidade;
+    setPedidosData(pedidosData);
   };
 
   const subtraiValor = () => {
     if (quantidade === 0) {
       button.disabled = true;
     }
-    setQuantidade(quantidade - 1);
+
+    const descQuantidade = quantidade - 1;
+    setQuantidade(descQuantidade);
+
+    const verificaProd = pedidosData.produtos.filter((item) => item.id === id);
+    if (verificaProd[0].quantidade === 1) {
+      pedidosData.produtos.filter((pedidos) => pedidos.id !== id);
+      return setPedidosData(pedidosData);
+    }
+
+    const novaQuantidade = pedidosData.produtos.map((pedido) => {
+      if (pedido.id === verificaProd[0].id) {
+        pedido.quantidade = descQuantidade;
+      }
+      return pedido;
+    });
+    pedidosData.produtos = novaQuantidade;
+    setPedidosData(pedidosData);
   };
 
   return (
@@ -72,5 +92,4 @@ ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   urlImage: PropTypes.string.isRequired,
-  produtos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
