@@ -19,7 +19,7 @@ const { expect } = require('chai');
 chai.use(chaiHttp);
 
 describe('POST /api/users/login', () => {
-  describe('200 OK - Sucesso ', () => {
+  describe('200 OK - Sucesso', () => {
     let chaiHttpResponse;
 
     before(() => {
