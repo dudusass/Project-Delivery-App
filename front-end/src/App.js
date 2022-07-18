@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes as Switch, Route } from 'react-router-dom';
+import { Routes as Switch, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Provider from './context/Provider';
 
@@ -12,7 +12,8 @@ function App() {
   return (
     <Provider>
       <Switch>
-        <Route exact element={ <Login /> } path="/" />
+        <Route element={ <Navigate to="/login" /> } path="/" />
+        <Route element={ <Login /> } path="/login" />
         <Route element={ <Produtos /> } path="/customer/products" />
         <Route element={ <MeusPedidos /> } path="/customer/orders" />
         <Route element={ <FinalizarPedido /> } path="/customer/checkout" />
