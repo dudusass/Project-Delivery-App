@@ -21,9 +21,9 @@ module.exports = {
         allowNull: false,
       },
       role: {
-        type: Sequelize.INTEGER, // e string amigao
+        type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 2
+        defaultValue: 'customer'
       },
     });
   },
