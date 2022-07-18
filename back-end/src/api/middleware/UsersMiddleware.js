@@ -36,7 +36,7 @@ class UsersMiddleware {
       throw new BadDigestError(this.invalidFieldMessage);
     }
 
-    if (password.length < 8) {
+    if (password.length  < 6) {
       throw new BadDigestError('"password" length must be equal or greater than 6');
     }
     return next();
