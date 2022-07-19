@@ -1,41 +1,41 @@
 .cardProductContainer {
-  width: 300px;
+  align-items: center;
   background-color: rgb(28, 51, 70);
+  border-radius: 5px;
   color: antiquewhite;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-left: 50px;
   margin-top: 50px;
   padding: 10px;
-  margin-left: 50px;
-  border-radius: 5px;
+  width: 300px;
 }
 
 .butoesContainer {
-  display: flex;
+  align-items: center;
+  background-color: rgb(4, 54, 54);
   border: 1px solid wheat;
-  width: 110px;
+  border-radius: 10px;
+  display: flex;
   height: 45px;
   justify-content: space-between;
-  align-items: center;
-  border-radius: 10px;
-  background-color: rgb(4, 54, 54);
+  width: 110px;
 }
 
 .buttons {
-  height: 30px;
   font-size: 18px;
   font-weight: 800;
+  height: 30px;
 }
 
 .preco {
-  top: 50px;
-  position: relative;
+  align-items: center;
   background-color: rgba(99, 40, 40, 0.562);
-  padding: 5px;
-  width: 70px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+  top: 50px;
+  width: 70px;
 }

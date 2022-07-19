@@ -4,9 +4,9 @@
   color: azure;
   display: flex;
   justify-content: center;
+  left: 1170px;
   padding: 20px;
-  width: 190px;
   position: fixed;
   top: 90vh;
-  left: 1170px;
+  width: 190px;
 }

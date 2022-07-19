@@ -23,6 +23,7 @@ function Register() {
     try {
       const returnRequest = await axios.post('http://localhost:3001/api/users/register', inputs);
       navigate('/login');
+      return returnRequest;
     } catch (error) {
       setDisplayErrorMsg(true);
     }
@@ -79,7 +80,7 @@ function Register() {
           />
         </label>
         <button
-          type=""
+          type="button"
           className="registerButton"
           disabled={ enableButton() }
           onClick={ handleClickRegister }
