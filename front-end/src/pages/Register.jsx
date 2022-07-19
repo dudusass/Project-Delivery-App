@@ -79,6 +79,7 @@ function Register() {
           />
         </label>
         <button
+          type=""
           className="registerButton"
           disabled={ enableButton() }
           onClick={ handleClickRegister }
@@ -95,7 +96,7 @@ function Register() {
         }
       </form>
     </div>
-  )
+  );
 }
 
 export default Register;
