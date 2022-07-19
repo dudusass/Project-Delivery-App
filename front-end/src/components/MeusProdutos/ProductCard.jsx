@@ -67,27 +67,32 @@ export default function ProductCard(props) {
   return (
     <div className="cardProductContainer">
       <div>
-        <p className="preco">
+        <p data-testid={ `customer_products__element-card-price-${price}`}
+          className="preco">
           {` R$ ${price.toFixed(2).toString().replace('.', ',')}`}
         </p>
-        <img className="imagem" src={ urlImage } alt="imagem do produto" width="200" />
+        <img data-testid={ `customer_products__img-card-bg-image-${urlImage}`}
+        className="imagem" src={ urlImage } alt="imagem do produto" width="200" />
       </div>
-      <p>{name}</p>
+      <p data-testid={ `customer_products__element-card-title${name}`}>{name}</p>
       <div className="butoesContainer">
         <button
           className="buttons"
           type="button"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           onClick={ () => somaValor() }
         >
           +
           {' '}
         </button>
-        <p>{quantidade}</p>
+        <p data-testid={ `customer_products__input-card-quantity`}>{quantidade}</p>
         <button
           className="buttons"
           type="button"
+          data-testid={ `customer_products__button-card-rm-item-${id}`}
           disabled={ (quantidade === 0) }
           onClick={ () => subtraiValor() }
+          
         >
           -
         </button>
