@@ -8,14 +8,22 @@ function PedidosCard(props) {
   return (
     <div className="pedidosContainer">
       <div className="pedidos">
-        <p>{`Pedido${pedido}`}</p>
+        <p
+          data-testid={ `customer_orders__element-order-id-${id}` }
+        >
+          {`Pedido${pedido}`}
+        </p>
       </div>
       <div className="status">
         <p>{`${status}`}</p>
       </div>
       <div className="data">
-        <p>{`${data}`}</p>
-        <p>{`R$ ${preco.toFixed(2).toString().replace('.', ',')}`}</p>
+        <p data-testid={ `customer_orders__element-order-date-${id}` }>{`${data}`}</p>
+        <p
+          data-testid={ `customer_orders__element-card-price-${id}` }
+        >
+          {`R$ ${preco.toFixed(2).toString().replace('.', ',')}`}
+        </p>
       </div>
     </div>
   );
