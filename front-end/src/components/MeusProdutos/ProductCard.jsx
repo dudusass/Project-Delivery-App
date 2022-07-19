@@ -9,6 +9,33 @@ export default function ProductCard(props) {
 
   const [quantidade, setQuantidade] = useState(0);
 
+  const setValueQuantidade = (target) => {
+    if (Number(target)) {
+      setQuantidade(Number(target));
+      const subtotal = Number(target) * price;
+
+      const verificaProd = pedidosData.produtos.filter((item) => item.id === id);
+
+      if (verificaProd.length === 0) {
+        pedidosData.produtos.push({ id, name, price, quantidade: target, subtotal });
+        setPedidosData(pedidosData);
+        return updateCarrinho(verificaProd);
+      }
+
+      const newProdutos = pedidosData.produtos.map((pedido) => {
+        if (pedido.id === verificaProd[0].id) {
+          pedido.quantidade = target;
+          pedido.subtotal = subtotal;
+        }
+        return pedido;
+      });
+      const newPedidos = pedidosData;
+      newPedidos.produtos = newProdutos;
+      setPedidosData(newPedidos);
+      updateCarrinho(verificaProd);
+    }
+  };
+
   const somaValor = () => {
     const newQuantidade = quantidade + 1;
     setQuantidade(newQuantidade);
@@ -67,29 +94,45 @@ export default function ProductCard(props) {
   return (
     <div className="cardProductContainer">
       <div>
-        <p className="preco">
+        <p
+          data-testid={ `customer_products__element-card-price-${id}` }
+          className="preco"
+        >
           {` R$ ${price.toFixed(2).toString().replace('.', ',')}`}
         </p>
-        <img className="imagem" src={ urlImage } alt="imagem do produto" width="200" />
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          className="imagem"
+          src={ urlImage }
+          alt="imagem do produto"
+          width="200"
+        />
       </div>
-      <p>{name}</p>
+      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
       <div className="butoesContainer">
         <button
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           className="buttons"
           type="button"
-          onClick={ () => somaValor() }
-        >
-          +
-          {' '}
-        </button>
-        <p>{quantidade}</p>
-        <button
-          className="buttons"
-          type="button"
-          disabled={ (quantidade === 0) }
           onClick={ () => subtraiValor() }
         >
           -
+          {' '}
+        </button>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          className="inputValue"
+          onChange={ ({ target }) => setValueQuantidade(target.value) }
+          value={ quantidade }
+        />
+        <button
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          className="buttons"
+          type="button"
+          disabled={ (quantidade === 0) }
+          onClick={ () => somaValor() }
+        >
+          +
         </button>
       </div>
       <div />
