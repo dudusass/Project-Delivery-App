@@ -50,6 +50,16 @@ class SalesMiddleware {
 
     next();
   }
+
+  verifySellerId(req, _res, next) {
+    const { sellerId } = req.body;
+
+    if (!sellerId) {
+      throw new BadDigestError(this.invalidFieldMessage);
+    }
+
+    next();
+  }
 }
 
 module.exports = SalesMiddleware;

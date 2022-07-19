@@ -32,6 +32,7 @@ route
     (req, res, next) => salesMiddleware.verifyDeliveryAddress(req, res, next),
     (req, res, next) => salesMiddleware.verifyDeliveryNumber(req, res, next),
     (req, res, next) => salesMiddleware.verifySaleProducts(req, res, next),
+    (req, res, next) => salesMiddleware.verifySellerId(req, res, next),
     (req, res) => salesController.create(req, res),
   )
   .patch(

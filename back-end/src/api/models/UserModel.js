@@ -21,7 +21,7 @@ class UserModel {
   async getAllSellers() {
     const users = await this.user.findAll({
       where: {
-        role: 1,
+        role: 'seller',
       },
       attributes: { exclude: ['password'] },
     });
