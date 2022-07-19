@@ -10,12 +10,15 @@ const pedidosMock = {
 export default function Provider({ children }) {
   const [productData, setProductData] = useState([]);
   const [pedidosData, setPedidosData] = useState(pedidosMock);
+  const [totalCarrinho, updateCarrinho] = useState(0);
 
   const functions = {
     productData,
     setProductData,
     pedidosData,
     setPedidosData,
+    totalCarrinho,
+    updateCarrinho,
   };
 
   return (

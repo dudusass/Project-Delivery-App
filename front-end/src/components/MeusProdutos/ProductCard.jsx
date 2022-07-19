@@ -5,7 +5,7 @@ import '../../css/ProductCard.css';
 
 export default function ProductCard(props) {
   const { id, name, price, urlImage } = props;
-  const { pedidosData, setPedidosData } = useContext(ContextProject);
+  const { pedidosData, setPedidosData, updateCarrinho } = useContext(ContextProject);
 
   const [quantidade, setQuantidade] = useState(0);
 
@@ -18,20 +18,21 @@ export default function ProductCard(props) {
 
     if (verificaProd.length === 0) {
       pedidosData.produtos.push({ id, name, price, quantidade: newQuantidade, subtotal });
-      console.log(pedidosData.produtos);
-      return setPedidosData(pedidosData);
+      setPedidosData(pedidosData);
+      updateCarrinho(newQuantidade);
+      return;
     }
     const novaQuantidade = pedidosData.produtos.map((pedido) => {
       if (pedido.id === verificaProd[0].id) {
         pedido.quantidade = newQuantidade;
         pedido.subtotal = subtotal;
-        console.log(pedidosData.produtos);
       }
       return pedido;
     });
     const newPedidos = pedidosData;
     newPedidos.produtos = novaQuantidade;
     setPedidosData(newPedidos);
+    updateCarrinho(newQuantidade);
   };
 
   const subtraiValor = () => {
@@ -40,24 +41,27 @@ export default function ProductCard(props) {
     }
 
     const descQuantidade = quantidade - 1;
+    const subtotal = descQuantidade * price;
     setQuantidade(descQuantidade);
 
     const verificaProd = pedidosData.produtos.filter((item) => item.id === id);
     if (verificaProd[0].quantidade === 1) {
       pedidosData.produtos.filter((pedidos) => pedidos.id !== id);
-      console.log(pedidosData.produtos);
-      return setPedidosData(pedidosData);
+      setPedidosData(pedidosData);
+      updateCarrinho(descQuantidade);
+      return;
     }
 
     const novaQuantidade = pedidosData.produtos.map((pedido) => {
       if (pedido.id === verificaProd[0].id) {
         pedido.quantidade = descQuantidade;
-        console.log(pedidosData.produtos);
+        pedido.subtotal = subtotal;
       }
       return pedido;
     });
     pedidosData.produtos = novaQuantidade;
     setPedidosData(pedidosData);
+    updateCarrinho(descQuantidade);
   };
 
   return (
