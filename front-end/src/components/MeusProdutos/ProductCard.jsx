@@ -114,10 +114,10 @@ export default function ProductCard(props) {
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           className="buttons"
           type="button"
+          disabled={ (quantidade === 0) }
           onClick={ () => subtraiValor() }
         >
           -
-          {' '}
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
@@ -129,7 +129,6 @@ export default function ProductCard(props) {
           data-testid={ `customer_products__button-card-add-item-${id}` }
           className="buttons"
           type="button"
-          disabled={ (quantidade === 0) }
           onClick={ () => somaValor() }
         >
           +

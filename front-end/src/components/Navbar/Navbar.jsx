@@ -39,7 +39,7 @@ function Navbar() {
           className="name-bar buttons-adjust"
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          { user.email }
+          { user.name }
         </button>
         <button
           type="button"
