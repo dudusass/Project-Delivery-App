@@ -50,7 +50,7 @@ class SalesMiddleware {
 
     next();
   }
-
+  
   verifySellerId(req, _res, next) {
     const { sellerId } = req.body;
 

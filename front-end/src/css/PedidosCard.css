@@ -1,0 +1,10 @@
+.pedidosContainer {
+  align-items: center;
+  background-color: rgb(71, 177, 150);
+  border: 1px solid red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  width: 500px;
+}
