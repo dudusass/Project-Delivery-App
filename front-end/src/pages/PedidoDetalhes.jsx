@@ -19,8 +19,6 @@ export default function PedidoDetalhes() {
   const params = useParams();
 
   useEffect(() => {
-    if (!user) navigate('/');
-
     (async () => {
       try {
         let sellersResu = await axios.get('http://localhost:3001/api/sellers',

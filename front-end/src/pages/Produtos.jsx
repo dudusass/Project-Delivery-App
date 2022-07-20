@@ -14,7 +14,6 @@ export default function Produtos() {
 
   useEffect(() => {
     const user = getStorage('user');
-    if (!user) navigate('/');
     (async () => {
       try {
         let productResult = await axios

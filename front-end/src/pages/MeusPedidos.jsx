@@ -13,8 +13,6 @@ export default function MeusPedidos() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) navigate('/');
-
     (async () => {
       try {
         const sellersResu = await axios.get('http://localhost:3001/api/sales',

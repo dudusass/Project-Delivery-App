@@ -6,7 +6,6 @@ import '../../css/Navbar.css';
 function Navbar() {
   const navigate = useNavigate();
   const user = getStorage('user');
-  if (!user) navigate('/');
 
   const btnSair = () => {
     removeStorage('user');
