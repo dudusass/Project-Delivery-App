@@ -11,7 +11,7 @@ export default function CarrinhoPreco() {
   useEffect(() => {
     const totalItens = pedidosData.produtos
       .reduce((acc, item) => acc + item.subtotal, 0);
-    console.log(pedidosData.produtos);
+
     setTotalCarrinho(totalItens);
   }, [pedidosData.produtos, totalCarrinho]);
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../../css/PedidosCard.css';
 
 function PedidosCard(props) {
-  const { pedido, status, data, preco } = props;
+  const { id, pedido, status, data, preco } = props;
 
   return (
     <div className="pedidosContainer">
@@ -30,6 +30,7 @@ function PedidosCard(props) {
 }
 
 PedidosCard.propTypes = {
+  id: PropTypes.number.isRequired,
   pedido: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   data: PropTypes.string.isRequired,

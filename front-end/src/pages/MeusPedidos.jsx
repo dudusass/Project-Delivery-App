@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ContextProject from '../context';
+import Navbar from '../components/Navbar/Navbar';
 import PedidosCard from '../components/MeusPedidos/PedidosCard';
 import '../css/MeusPedidos.css';
 
 export default function MeusPedidos() {
-  const { pedidosData, setPedidosData } = useContext(ContextProject);
+  const [pedidosData, setPedidosData] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -19,11 +19,14 @@ export default function MeusPedidos() {
   });
 
   const mapPedidosCards = () => pedidosData
-    .map((pedidos, index) => (<PedidosCard key={ index } { ...pedidos } />));
+    .map((pedidos, index) => (<PedidosCard key={ index } id={ index } { ...pedidos } />));
 
   return (
-    <div className="meusPedidosContainer">
-      { (pedidosData.length > 0) && mapPedidosCards() }
-    </div>
+    <>
+      <Navbar />
+      <div className="meusPedidosContainer">
+        { (pedidosData.length > 0) && mapPedidosCards() }
+      </div>
+    </>
   );
 }
