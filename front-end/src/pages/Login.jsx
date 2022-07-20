@@ -14,14 +14,18 @@ function Login() {
 
   useEffect(() => {
     const user = getStorage('user');
-    if (user) navigate('/customer/products');
+    if (user) {
+      if (user.role === 'seller') navigate('/seller/orders');
+      if (user.role === 'customer') navigate('/customer/products');
+    }
   }, [navigate]);
 
   async function handleClickLogin() {
     try {
-      const returnRequest = await axios.post('http://localhost:3001/api/users/login', inputs);
-      saveStorage('user', returnRequest.data);
-      navigate('/customer/products');
+      const { data } = await axios.post('http://localhost:3001/api/users/login', inputs);
+      saveStorage('user', data);
+      if (data.role === 'seller') navigate('/seller/orders');
+      if (data.role === 'customer') navigate('/customer/products');
     } catch (error) {
       setDisplayErrorMsg(true);
     }

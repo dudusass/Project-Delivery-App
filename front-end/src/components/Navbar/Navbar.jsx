@@ -12,6 +12,13 @@ function Navbar() {
     navigate('/');
   };
 
+  const handleLink = () => {
+    if (user) {
+      if (user.role === 'seller') navigate('/seller/orders');
+      if (user.role === 'customer') navigate('/customer/products');
+    }
+  };
+
   return (
     <nav className="separete-buttons">
       <div className="box">
@@ -19,18 +26,19 @@ function Navbar() {
           type="submit"
           className=" selected product-button buttons-adjust"
           data-testid="customer_products__element-navbar-link-products"
-          onClick={ () => navigate('/customer/products') }
+          onClick={ handleLink }
         >
-          PRODUTOS
+          { (user) && (user.role === 'seller') ? 'PEDIDOS' : 'PRODUTOS'}
         </button>
-        <button
-          type="button"
-          className="request-button buttons-adjust"
-          data-testid="customer_products__element-navbar-link-orders"
-          onClick={ () => navigate('/customer/orders') }
-        >
-          MEUS PEDIDOS
-        </button>
+        { (user) && (user.role === 'customer') && (
+          <button
+            type="button"
+            className="request-button buttons-adjust"
+            data-testid="customer_products__element-navbar-link-orders"
+            onClick={ () => navigate('/customer/orders') }
+          >
+            MEUS PEDIDOS
+          </button>)}
       </div>
       <div className="box">
         <button
