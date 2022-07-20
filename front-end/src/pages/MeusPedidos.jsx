@@ -6,13 +6,12 @@ import Navbar from '../components/Navbar/Navbar';
 import PedidosCard from '../components/MeusPedidos/PedidosCard';
 import '../css/MeusPedidos.css';
 
-const user = getStorage('user');
-
 export default function MeusPedidos() {
   const [pedidosData, setPedidosData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const user = getStorage('user');
     (async () => {
       try {
         const sellersResu = await axios.get('http://localhost:3001/api/sales',

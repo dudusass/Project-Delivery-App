@@ -9,8 +9,6 @@ const dataTestId = [
   'customer_order_details__element-order-details-label-delivery-status',
 ];
 
-const user = getStorage('user');
-
 export default function PedidoDetalhes() {
   const [detalhePedido, setDetalhePedido] = useState([]);
   const [vendedor, setVendedor] = useState('');
@@ -19,6 +17,7 @@ export default function PedidoDetalhes() {
   const params = useParams();
 
   useEffect(() => {
+    const user = getStorage('user');
     (async () => {
       try {
         let sellersResu = await axios.get('http://localhost:3001/api/sellers',

@@ -6,8 +6,6 @@ import Navbar from '../components/Navbar/Navbar';
 import ContextProject from '../context';
 import FinalizarPedidosCard from '../components/FinalizarPedidos/FinalizarPedidosCard';
 
-const user = getStorage('user');
-
 export default function FinalizarPedido() {
   const { pedidosData, totalCarrinho } = useContext(ContextProject);
   const [carrinho, setTotalCarrinho] = useState(0);
@@ -26,6 +24,7 @@ export default function FinalizarPedido() {
     setTotalCarrinho(totalItens);
 
     (async () => {
+      const user = getStorage('user');
       try {
         const { data } = await axios.get('http://localhost:3001/api/sellers',
           { headers: { authorization: user.token } });
@@ -38,6 +37,7 @@ export default function FinalizarPedido() {
   }, [navigate, pedidosData.produtos, totalCarrinho]);
 
   const realizarPedido = async () => {
+    const user = getStorage('user');
     const objetoCompra = {
       sellerId: dadosPedido.vendedor,
       totalPrice: carrinho,
