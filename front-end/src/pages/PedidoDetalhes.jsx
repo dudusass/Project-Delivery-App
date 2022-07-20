@@ -14,7 +14,7 @@ export default function PedidoDetalhes() {
   const [detalhePedido, setDetalhePedido] = useState([]);
   const [vendedor, setVendedor] = useState('');
   const [statusPedido, setStatusPedido] = useState('');
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -32,7 +32,7 @@ export default function PedidoDetalhes() {
         setVendedor(sellersResu[0].name);
         setStatusPedido(pediArr[0].status);
         setDetalhePedido(pediArr);
-        if (pediArr[0].status === 'Entregue') setAuth(true);
+        if (pediArr[0].status === 'Em Trânsito') setAuth(false);
       } catch (error) {
         console.log(error);
       }

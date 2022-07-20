@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStorage, removeStorage } from '../../localStorage/localStorage';
 import '../../css/Navbar.css';
 
 function Navbar() {
+  const [usuario, setUser] = useState([]);
   const navigate = useNavigate();
-  const user = getStorage('user');
 
   const btnSair = () => {
     removeStorage('user');
     navigate('/');
   };
 
+  useEffect(() => {
+    setUser(getStorage('user'));
+  }, []);
+
   const handleLink = () => {
     if (user) {
-      if (user.role === 'seller') navigate('/seller/orders');
-      if (user.role === 'customer') navigate('/customer/products');
+      if (usuario.role === 'seller') navigate('/seller/orders');
+      if (usuario.role === 'customer') navigate('/customer/products');
     }
   };
 
@@ -28,9 +32,9 @@ function Navbar() {
           data-testid="customer_products__element-navbar-link-products"
           onClick={ handleLink }
         >
-          { (user) && (user.role === 'seller') ? 'PEDIDOS' : 'PRODUTOS'}
+          { (usuario) && (usuario.role === 'seller') ? 'PEDIDOS' : 'PRODUTOS'}
         </button>
-        { (user) && (user.role === 'customer') && (
+        { (usuario) && (usuario.role === 'customer') && (
           <button
             type="button"
             className="request-button buttons-adjust"
@@ -46,7 +50,7 @@ function Navbar() {
           className="name-bar buttons-adjust"
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          { user.name }
+          { usuario.name }
         </button>
         <button
           type="button"
