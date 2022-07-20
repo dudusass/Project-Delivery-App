@@ -8,11 +8,13 @@ import Register from './pages/Register';
 import MeusPedidos from './pages/MeusPedidos';
 import Produtos from './pages/Produtos';
 import FinalizarPedido from './pages/FinalizarPedido';
+import PedidoDetalhes from './pages/PedidoDetalhes';
 
 function App() {
   return (
     <Provider>
       <Switch>
+        <Route element={ <PedidoDetalhes /> } path="/customer/orders/:id" />
         <Route element={ <Navigate to="/login" /> } path="/" />
         <Route element={ <Login /> } path="/login" />
         <Route element={ <Register /> } path="/register" />

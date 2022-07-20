@@ -16,46 +16,38 @@ function FinalizarPedidosCard(props) {
 
   return (
     <div className="finalizar-pedidos-container">
-      <div>
-        <p>{ item }</p>
-      </div>
-      <div>
-        <p
-          data-testid={ `customer_checkout__element-order-table-name-${item}` }
-        >
-          { name }
-        </p>
-      </div>
-      <div>
-        <p
-          data-testid={ `customer_checkout__element-order-table-quantity-${item}` }
-        >
-          { quantity }
-        </p>
-      </div>
-      <div>
-        <p
-          data-testid={ `customer_checkout__element-order-table-unit-price-${item}` }
-        >
-          { price }
-        </p>
-      </div>
-      <div>
-        <p
-          data-testid={ `customer_checkout__element-order-table-sub-total-${item}` }
-        >
-          { subtotal }
-        </p>
-      </div>
-      <div>
-        <button
-          data-testid={ `customer_checkout__element-order-table-remove-${item}` }
-          type="button"
-          onClick={ () => removerItem() }
-        >
-          Remover Item
-        </button>
-      </div>
+      <p
+        data-testid={ `customer_checkout__element-order-table-item-number-${item}` }
+      >
+        { item + 1}
+      </p>
+      <p
+        data-testid={ `customer_checkout__element-order-table-name-${item}` }
+      >
+        { name }
+      </p>
+      <p
+        data-testid={ `customer_checkout__element-order-table-quantity-${item}` }
+      >
+        { quantity }
+      </p>
+      <p
+        data-testid={ `customer_checkout__element-order-table-unit-price-${item}` }
+      >
+        { price.toFixed(2).toString().replace('.', ',') }
+      </p>
+      <p
+        data-testid={ `customer_checkout__element-order-table-sub-total-${item}` }
+      >
+        { subtotal.toFixed(2).toString().replace('.', ',') }
+      </p>
+      <button
+        data-testid={ `customer_checkout__element-order-table-remove-${item}` }
+        type="button"
+        onClick={ () => removerItem() }
+      >
+        Remover Item
+      </button>
     </div>
   );
 }

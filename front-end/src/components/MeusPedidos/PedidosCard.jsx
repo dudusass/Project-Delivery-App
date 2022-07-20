@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../../css/PedidosCard.css';
 
 function PedidosCard(props) {
-  const { id, pedido, status, data, preco } = props;
+  const { id, status, saleDate, totalPrice } = props;
 
   return (
     <div className="pedidosContainer">
@@ -11,18 +11,18 @@ function PedidosCard(props) {
         <p
           data-testid={ `customer_orders__element-order-id-${id}` }
         >
-          {`Pedido${pedido}`}
+          { id }
         </p>
       </div>
       <div className="status">
         <p>{`${status}`}</p>
       </div>
       <div className="data">
-        <p data-testid={ `customer_orders__element-order-date-${id}` }>{`${data}`}</p>
+        <p data-testid={ `customer_orders__element-order-date-${id}` }>{`${saleDate}`}</p>
         <p
           data-testid={ `customer_orders__element-card-price-${id}` }
         >
-          {`R$ ${preco.toFixed(2).toString().replace('.', ',')}`}
+          {`R$ ${totalPrice.replace('.', ',')}`}
         </p>
       </div>
     </div>
@@ -31,10 +31,9 @@ function PedidosCard(props) {
 
 PedidosCard.propTypes = {
   id: PropTypes.number.isRequired,
-  pedido: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
-  preco: PropTypes.number.isRequired,
+  saleDate: PropTypes.string.isRequired,
+  totalPrice: PropTypes.string.isRequired,
 };
 
 export default PedidosCard;

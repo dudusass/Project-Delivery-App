@@ -30,7 +30,6 @@ export default function FinalizarPedido() {
       try {
         const sellersResu = await axios.get('http://localhost:3001/api/sellers',
           { headers: { authorization: user.token } });
-        console.log(sellersResu);
         setSellers(sellersResu.data);
         setPedidos({ vendedor: sellersResu.data[0].id, endereco: '', numero: '' });
       } catch (error) {
@@ -39,7 +38,7 @@ export default function FinalizarPedido() {
     })();
   }, [navigate, pedidosData.produtos, totalCarrinho]);
 
-  const realizarPeido = async () => {
+  const realizarPedido = async () => {
     const user = getStorage('user');
 
     const objetoCompra = {
@@ -49,11 +48,11 @@ export default function FinalizarPedido() {
       deliveryNumber: dadosPedido.numero,
       saleProducts: pedidosData.produtos.map((item) => ({ ...item, productId: item.id })),
     };
-    console.log(objetoCompra);
-    try {
-      await axios.post('http://localhost:3001/api/sales', objetoCompra,
-        { headers: { authorization: user.token } });
 
+    try {
+      const result = await axios.post('http://localhost:3001/api/sales', objetoCompra,
+        { headers: { authorization: user.token } });
+      navigate(`/customer/orders/${result.data.saleId}`);
       setCompraFinalizada(true);
     } catch (error) {
       console.log(error);
@@ -63,7 +62,7 @@ export default function FinalizarPedido() {
   const mapFinalizarPedidos = () => pedidosData.produtos
     .map((pedidos, index) => (<FinalizarPedidosCard
       key={ index }
-      item={ index + 1 }
+      item={ index }
       { ...pedidos }
     />));
 
@@ -111,7 +110,7 @@ export default function FinalizarPedido() {
         <button
           data-testid="customer_checkout__button-submit-order"
           type="button"
-          onClick={ realizarPeido }
+          onClick={ realizarPedido }
         >
           Finalizar Pedido
         </button>
