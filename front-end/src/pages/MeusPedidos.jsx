@@ -16,7 +16,6 @@ export default function MeusPedidos() {
       try {
         const sellersResu = await axios.get('http://localhost:3001/api/sales',
           { headers: { authorization: user.token } });
-        console.log(sellersResu);
         setPedidosData(sellersResu.data);
       } catch (error) {
         console.log(error);

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { saveStorage } from '../localStorage/localStorage';
+import { getStorage, saveStorage } from '../localStorage/localStorage';
 import '../css/Login.css';
 
 function Login() {
@@ -11,6 +11,11 @@ function Login() {
 
   const handleChange = ({ target: { name, value } }) => setInputs((prevState) => (
     { ...prevState, [name]: value }));
+
+  useEffect(() => {
+    const user = getStorage('user');
+    if (user) navigate('/customer/products');
+  }, [navigate]);
 
   async function handleClickLogin() {
     try {

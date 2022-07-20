@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DetalhesPedido from '../components/DetalhesPedidos/DetalhesPedido';
 import { getStorage } from '../localStorage/localStorage';
 import Navbar from '../components/Navbar/Navbar';
+import dateFormato from '../utils/dateFormat';
 
 const dataTestId = [
   'customer_order_details__element-order-details-label-delivery-status',
@@ -52,7 +53,7 @@ export default function PedidoDetalhes() {
           <p
             data-testid="customer_order_details__element-order-details-label-order-date"
           >
-            {order.saleDate}
+            {dateFormato(order.saleDate)}
           </p>
           <p
             data-testid={ dataTestId[0] }

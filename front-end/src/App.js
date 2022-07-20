@@ -15,7 +15,7 @@ function App() {
     <Provider>
       <Switch>
         <Route element={ <PedidoDetalhes /> } path="/customer/orders/:id" />
-        <Route element={ <Navigate to="/login" /> } path="/" />
+        <Route exact element={ <Navigate to="/login" /> } path="/" />
         <Route element={ <Login /> } path="/login" />
         <Route element={ <Register /> } path="/register" />
         <Route element={ <Produtos /> } path="/customer/products" />
