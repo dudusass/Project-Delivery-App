@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStorage, removeStorage } from '../../localStorage/localStorage';
 import '../../css/Navbar.css';
 
 function Navbar() {
+  const [usuario, setUser] = useState([]);
   const navigate = useNavigate();
-  const user = getStorage('user');
-  if (!user) navigate('/');
 
   const btnSair = () => {
     removeStorage('user');
     navigate('/');
+  };
+
+  useEffect(() => {
+    setUser(getStorage('user'));
+  }, []);
+
+  const handleLink = () => {
+    if (user) {
+      if (usuario.role === 'seller') navigate('/seller/orders');
+      if (usuario.role === 'customer') navigate('/customer/products');
+    }
   };
 
   return (
@@ -20,18 +30,19 @@ function Navbar() {
           type="submit"
           className=" selected product-button buttons-adjust"
           data-testid="customer_products__element-navbar-link-products"
-          onClick={ () => navigate('/customer/products') }
+          onClick={ handleLink }
         >
-          PRODUTOS
+          { (usuario) && (usuario.role === 'seller') ? 'PEDIDOS' : 'PRODUTOS'}
         </button>
-        <button
-          type="button"
-          className="request-button buttons-adjust"
-          data-testid="customer_products__element-navbar-link-orders"
-          onClick={ () => navigate('/customer/orders') }
-        >
-          MEUS PEDIDOS
-        </button>
+        { (usuario) && (usuario.role === 'customer') && (
+          <button
+            type="button"
+            className="request-button buttons-adjust"
+            data-testid="customer_products__element-navbar-link-orders"
+            onClick={ () => navigate('/customer/orders') }
+          >
+            MEUS PEDIDOS
+          </button>)}
       </div>
       <div className="box">
         <button
@@ -39,7 +50,7 @@ function Navbar() {
           className="name-bar buttons-adjust"
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          { user.name }
+          { usuario.name }
         </button>
         <button
           type="button"

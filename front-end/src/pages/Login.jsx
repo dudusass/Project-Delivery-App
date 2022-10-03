@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { saveStorage } from '../localStorage/localStorage';
+import { getStorage, saveStorage } from '../localStorage/localStorage';
 import '../css/Login.css';
 
 function Login() {
@@ -12,11 +12,20 @@ function Login() {
   const handleChange = ({ target: { name, value } }) => setInputs((prevState) => (
     { ...prevState, [name]: value }));
 
+  useEffect(() => {
+    const user = getStorage('user');
+    if (user) {
+      if (user.role === 'seller') navigate('/seller/orders');
+      if (user.role === 'customer') navigate('/customer/products');
+    }
+  }, [navigate]);
+
   async function handleClickLogin() {
     try {
-      const returnRequest = await axios.post('http://localhost:3001/api/users/login', inputs);
-      saveStorage('user', returnRequest.data);
-      navigate('/customer/products');
+      const { data } = await axios.post('http://localhost:3001/api/users/login', inputs);
+      saveStorage('user', data);
+      if (data.role === 'seller') navigate('/seller/orders');
+      if (data.role === 'customer') navigate('/customer/products');
     } catch (error) {
       setDisplayErrorMsg(true);
     }

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import DetalhesPedido from '../components/DetalhesPedidos/DetalhesPedido';
+import PedidosVendedorCard from '../components/PedidosVendedor/PedidosVendedorCard';
 import { getStorage } from '../localStorage/localStorage';
 import Navbar from '../components/Navbar/Navbar';
 import dateFormato from '../utils/dateFormat';
 
 const dataTestId = [
-  'customer_order_details__element-order-details-label-delivery-status',
+  'seller_order_details__element-order-details-label-delivery-status',
 ];
 
-export default function PedidoDetalhes() {
+export default function PedidoVendedor() {
   const [detalhePedido, setDetalhePedido] = useState([]);
-  const [vendedor, setVendedor] = useState('');
   const [statusPedido, setStatusPedido] = useState('');
-  const [auth, setAuth] = useState(true);
+
+  const [entrege, setEntregue] = useState(true);
+  const [transito, setTransito] = useState(true);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -23,33 +24,34 @@ export default function PedidoDetalhes() {
     const user = getStorage('user');
     (async () => {
       try {
-        let sellersResu = await axios.get('http://localhost:3001/api/sellers',
+        const { data } = await axios.get(`http://localhost:3001/api/sales/${params.id}`,
           { headers: { authorization: user.token } });
-        const pedidoResu = await axios.get(`http://localhost:3001/api/sales/${params.id}`,
-          { headers: { authorization: user.token } });
-        const pediArr = [pedidoResu.data];
-        sellersResu = sellersResu.data.filter((item) => item.id === pediArr[0].sellerId);
-        setVendedor(sellersResu[0].name);
-        setStatusPedido(pediArr[0].status);
+        const pediArr = [data];
+        if (data.status === 'Pendente') setEntregue(false);
+        if (data.status === 'Preparando') setTransito(false);
+        setStatusPedido(data.status);
         setDetalhePedido(pediArr);
-        if (pediArr[0].status === 'Em Trânsito') setAuth(false);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [navigate, params.id]);
 
-  const mudarStatus = async () => {
+  const mudarPedido = async ({ target }) => {
     const user = getStorage('user');
     const objctAtualizar = {
       saleId: params.id,
-      status: 'Entregue',
+      status: target.name,
     };
     try {
       await axios.patch('http://localhost:3001/api/sales', objctAtualizar,
         { headers: { authorization: user.token } });
-      setStatusPedido('Entregue');
-      setAuth(true);
+      setStatusPedido(target.name);
+      if (target.name === 'Preparando') {
+        setTransito(false);
+        setEntregue(true);
+      }
+      if (target.name === 'Em Trânsito') setTransito(true);
     } catch (error) {
       console.log(error);
     }
@@ -61,17 +63,12 @@ export default function PedidoDetalhes() {
       { (detalhePedido.length > 0) && detalhePedido.map((order, index) => (
         <div key={ index }>
           <p
-            data-testid="customer_order_details__element-order-details-label-order-id"
+            data-testid="seller_order_details__element-order-details-label-order-id"
           >
             { order.id }
           </p>
           <p
-            data-testid="customer_order_details__element-order-details-label-seller-name"
-          >
-            { vendedor }
-          </p>
-          <p
-            data-testid="customer_order_details__element-order-details-label-order-date"
+            data-testid="seller_order_details__element-order-details-label-order-date"
           >
             {dateFormato(order.saleDate)}
           </p>
@@ -82,14 +79,24 @@ export default function PedidoDetalhes() {
           </p>
           <button
             type="button"
-            data-testid="customer_order_details__button-delivery-check"
-            onClick={ mudarStatus }
-            disabled={ auth }
+            name="Preparando"
+            data-testid="seller_order_details__button-preparing-check"
+            disabled={ entrege }
+            onClick={ mudarPedido }
           >
-            MARCAR COMO ENTREGUE
+            PREPARAR PEDIDO
+          </button>
+          <button
+            type="button"
+            name="Em Trânsito"
+            data-testid="seller_order_details__button-dispatch-check"
+            disabled={ transito }
+            onClick={ mudarPedido }
+          >
+            SAIU PARA ENTREGA
           </button>
           { order.saleProduct.map((item, o) => (
-            <DetalhesPedido
+            <PedidosVendedorCard
               key={ o }
               { ...item.product }
               quantity={ item.quantity }
@@ -97,7 +104,7 @@ export default function PedidoDetalhes() {
             />))}
           <button
             type="button"
-            data-testid="customer_order_details__element-order-total-price"
+            data-testid="seller_order_details__element-order-total-price"
           >
             { `TOTAL: ${order.totalPrice.replace('.', ',')}` }
           </button>

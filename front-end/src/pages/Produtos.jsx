@@ -9,12 +9,11 @@ import ContextProject from '../context';
 import '../css/Produtos.css';
 
 export default function Produtos() {
-  const { productData, setProductData, pedidosData } = useContext(ContextProject);
+  const { productData, setProductData } = useContext(ContextProject);
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = getStorage('user');
-    if (!user) navigate('/');
     (async () => {
       try {
         let productResult = await axios
@@ -29,10 +28,6 @@ export default function Produtos() {
       }
     })();
   }, [navigate, setProductData]);
-
-  useEffect(() => {
-    console.log(pedidosData.produtos);
-  }, [pedidosData.produtos]);
 
   const mapProdutos = () => productData
     .map((produto, index) => (<ProductCard
