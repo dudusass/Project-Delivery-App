@@ -1,29 +1,42 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ContextProject from '../context';
+import { useNavigate } from 'react-router-dom';
+import { getStorage } from '../localStorage/localStorage';
+import Navbar from '../components/Navbar/Navbar';
 import PedidosCard from '../components/MeusPedidos/PedidosCard';
 import '../css/MeusPedidos.css';
 
+const user = getStorage('user');
+
 export default function MeusPedidos() {
-  const { pedidosData, setPedidosData } = useContext(ContextProject);
+  const [pedidosData, setPedidosData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user) navigate('/');
+
     (async () => {
       try {
-        const pedidosResult = (await axios.get('https://mocks-trybe.herokuapp.com/pedidos')).data;
-        setPedidosData(pedidosResult);
+        const sellersResu = await axios.get('http://localhost:3001/api/sales',
+          { headers: { authorization: user.token } });
+        console.log(sellersResu);
+        setPedidosData(sellersResu.data);
       } catch (error) {
         console.log(error);
       }
     })();
-  });
+  }, [navigate]);
 
   const mapPedidosCards = () => pedidosData
-    .map((pedidos, index) => (<PedidosCard key={ index } { ...pedidos } />));
+    .map((pedidos, index) => (
+      <PedidosCard key={ index } { ...pedidos } />));
 
   return (
-    <div className="meusPedidosContainer">
-      { (pedidosData.length > 0) && mapPedidosCards() }
-    </div>
+    <>
+      <Navbar />
+      <div className="meusPedidosContainer">
+        { (pedidosData.length > 0) && mapPedidosCards() }
+      </div>
+    </>
   );
 }

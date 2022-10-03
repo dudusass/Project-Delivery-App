@@ -10,10 +10,20 @@ class UserModel {
     const users = await this.user.findAll({
       where: {
         [Op.or]: [
-          { role: 'seller' },
+          { role: 'administrator' },
           { role: 'customer' },
         ],
       },
+    });
+    return users;
+  }
+
+  async getAllSellers() {
+    const users = await this.user.findAll({
+      where: {
+        role: 'seller',
+      },
+      attributes: { exclude: ['password'] },
     });
     return users;
   }

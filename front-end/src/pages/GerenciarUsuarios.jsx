@@ -5,7 +5,6 @@ function GerenciarUsuarios() {
     <div>
       <h1> Cadastrar Novo usuário </h1>
       <h1> Lista de usuários</h1>
-
     </div>
   );
 }

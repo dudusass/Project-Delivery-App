@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { saveStorage } from '../localStorage/localStorage';
 
 function Register() {
   const [displayErrorMsg, setDisplayErrorMsg] = useState(false);
@@ -21,9 +22,10 @@ function Register() {
   async function handleClickRegister(e) {
     e.preventDefault();
     try {
-      const returnRequest = await axios.post('http://localhost:3001/api/users/register', inputs);
-      navigate('/login');
-      return returnRequest;
+      await axios.post('http://localhost:3001/api/users/register', inputs);
+      const loginRequest = await axios.post('http://localhost:3001/api/users/login', inputs);
+      saveStorage('user', loginRequest.data);
+      navigate('/customer/products');
     } catch (error) {
       setDisplayErrorMsg(true);
     }
